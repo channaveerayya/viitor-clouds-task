@@ -26,7 +26,7 @@ export const login = (email, password) => async (dispatch) => {
   try {
     if (
       localStorage.getItem('email') === email &&
-      localStorage.getItem('password' === password)
+      localStorage.getItem('password') === password
     ) {
       dispatch({
         type: LOGIN_SUCCESS,
@@ -54,17 +54,25 @@ export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT })
 }
 
-export const register = ({ name, email, password }) => async (dispatch) => {
+export const signUp = (formData) => async (dispatch) => {
+  const { name, email, password } = formData
   try {
-    const res = { name, email, password }
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data,
-    })
+    if (
+      localStorage.getItem('email') !== email &&
+      localStorage.getItem('password') !== password &&
+      localStorage.getItem('name') !== name
+    ) {
+      await dispatch({
+        type: REGISTER_SUCCESS,
+        payload: { ...formData, token: 'token123' },
+      })
 
-    dispatch(loadData())
+      loadData()
+    } else {
+      throw Error
+    }
   } catch (error) {
-    dispatch(setAlert('Registration Fail', 'danger'))
+    dispatch(setAlert('Registration Fail user existed', 'danger'))
 
     dispatch({
       type: REGISTER_FAIL,

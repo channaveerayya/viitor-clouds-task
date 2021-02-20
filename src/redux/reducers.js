@@ -11,12 +11,13 @@ import MockData from '../mockData.json'
 
 const initState = {
   token: localStorage.getItem('viitor-token'),
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem('viitor-token') ? true : false,
   name: localStorage.getItem('name'),
   password: localStorage.getItem('password'),
   userEmail: localStorage.getItem('email'),
   mockData: null,
 }
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initState, action) {
   const { type, payload } = action
   switch (type) {
@@ -37,10 +38,10 @@ export default function (state = initState, action) {
     case LOGOUT:
     case AUTH_ERROR:
     case REGISTER_FAIL:
-      localStorage.removeItem('viitor-token', payload.token)
-      localStorage.removeItem('name', payload.name)
-      localStorage.removeItem('password', payload.password)
-      localStorage.removeItem('email', payload.email)
+      localStorage.removeItem('viitor-token')
+      localStorage.removeItem('name')
+      localStorage.removeItem('password')
+      localStorage.removeItem('email')
       return {
         token: null,
         isAuthenticated: false,

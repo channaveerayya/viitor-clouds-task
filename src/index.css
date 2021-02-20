@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: rgb(226, 222, 222);
+}
+
+.landing {
+  position: relative;
+  background-color: rgb(56, 53, 53);
+  height: 100vh;
+}
+
+.landing-inner {
+  color: #fff;
+  height: 100%;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.navbar {
+  display: flex;
+  text-align: center;
+  box-shadow: 1px 4px 5px -1px #fff;
+  color: #fff;
+}
+
+.navbar ul {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  color: #fff;
+  list-style: none;
+}
+.navbar ul li {
+  margin: 10px;
+}
+
+.navbar ul li a,
+.navbar ul li h1 {
+  color: #fff;
+}
+a {
+  text-decoration: none !important;
+}
+
+.global-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10em;
+}
+
+form {
+  padding-top: 10px;
+  font-size: 14px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.card-title {
+  font-weight: 300;
+}
+
+.card-body {
+  width: 50em;
+  height: 25em;
+}
