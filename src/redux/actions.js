@@ -9,34 +9,41 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
 } from './types'
-
+import { getApi } from '../Api'
 export const loadData = () => async (dispatch) => {
   try {
-    if (localStorage.token && localStorage.email && localStorage.password)
-      dispatch({
-        type: LOAD_DATA,
+    if (localStorage.viitorToken) {
+      getApi('/users').then((res) => {
+        dispatch({
+          type: LOAD_DATA,
+          payload: res,
+        })
       })
-    else throw Error
+    } else throw Error
   } catch (error) {
     dispatch({ type: AUTH_ERROR })
   }
 }
 
 export const login = (email, password) => async (dispatch) => {
+  let lEmail = await localStorage.getItem('email')
+  let lPassword = await localStorage.getItem('password')
+  let lName = await localStorage.getItem('name')
   try {
-    if (
-      localStorage.getItem('email') === email &&
-      localStorage.getItem('password') === password
-    ) {
+    if (lEmail === email && lPassword === password) {
+      // call login credentials
+      const res = await getApi('')
+
       dispatch({
         type: LOGIN_SUCCESS,
         payload: {
           token: 'token123',
-          email: localStorage.getItem('email'),
-          password: localStorage.getItem('password'),
-          name: localStorage.getItem('name'),
+          email: lEmail,
+          password: lPassword,
+          name: lName,
         },
       })
+      dispatch(loadData())
     } else {
       throw Error
     }
@@ -55,19 +62,16 @@ export const logout = () => (dispatch) => {
 }
 
 export const signUp = (formData) => async (dispatch) => {
-  const { name, email, password } = formData
+  let lEmail = await localStorage.getItem('email')
   try {
-    if (
-      localStorage.getItem('email') !== email &&
-      localStorage.getItem('password') !== password &&
-      localStorage.getItem('name') !== name
-    ) {
-      await dispatch({
+    if (lEmail !== formData.email) {
+      // call login credentials
+      const res = await getApi('')
+      dispatch({
         type: REGISTER_SUCCESS,
         payload: { ...formData, token: 'token123' },
       })
-
-      loadData()
+      dispatch(loadData())
     } else {
       throw Error
     }
@@ -83,5 +87,5 @@ export const signUp = (formData) => async (dispatch) => {
 export const setAlert = (msg, alertType) => (dispatch) => {
   const id = Math.random(100)
   dispatch({ type: SET_ALERT, payload: { msg, alertType, id } })
-  setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 2000)
+  setTimeout(() => dispatch({ type: REMOVE_ALERT }), 5000)
 }

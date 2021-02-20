@@ -8,10 +8,10 @@ const Landing = ({ isAuthenticated }) => {
     return <Redirect to='/dashboard' />
   }
   return (
-    <div class='landing '>
-      <div class='row landing-inner '>
+    <div className='landing '>
+      <div className='row landing-inner '>
         <h1>Viitor Cloud</h1>
-        <p class='h5'>
+        <p className='h5'>
           ViitorCloud offers web & mobile app development, AR/VR development, AI
           technology, IT consulting, Blockchain and IoT solutions.
         </p>
@@ -28,7 +28,7 @@ const Landing = ({ isAuthenticated }) => {
   )
 }
 
-Landing.prototype = {
+Landing.propTypes = {
   isAuthenticated: PropTypes.bool,
 }
 const mapStateToProps = (state) => ({

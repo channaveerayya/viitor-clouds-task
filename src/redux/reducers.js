@@ -6,16 +6,22 @@ import {
   LOAD_DATA,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
+  SET_ALERT,
+  REMOVE_ALERT,
 } from './types'
 import MockData from '../mockData.json'
 
 const initState = {
-  token: localStorage.getItem('viitor-token'),
-  isAuthenticated: localStorage.getItem('viitor-token') ? true : false,
+  token: localStorage.getItem('viitorToken'),
+  isAuthenticated: localStorage.getItem('viitorToken') ? true : false,
   name: localStorage.getItem('name'),
   password: localStorage.getItem('password'),
-  userEmail: localStorage.getItem('email'),
-  mockData: null,
+  email: localStorage.getItem('email'),
+  mockData: [],
+  altMsg: null,
+  altType: null,
+  altId: null,
+  loading: true,
 }
 // eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initState, action) {
@@ -23,7 +29,7 @@ export default function (state = initState, action) {
   switch (type) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      localStorage.setItem('viitor-token', payload.token)
+      localStorage.setItem('viitorToken', payload.token)
       localStorage.setItem('name', payload.name)
       localStorage.setItem('password', payload.password)
       localStorage.setItem('email', payload.email)
@@ -31,21 +37,34 @@ export default function (state = initState, action) {
         ...state,
         ...payload,
         isAuthenticated: true,
-        MockData: MockData,
+        // loading: false,
+        // mockData: MockData,
       }
 
     case LOGIN_FAIL:
-    case LOGOUT:
     case AUTH_ERROR:
     case REGISTER_FAIL:
-      localStorage.removeItem('viitor-token')
-      localStorage.removeItem('name')
-      localStorage.removeItem('password')
-      localStorage.removeItem('email')
+      // localStorage.removeItem('viitorToken')
+      // localStorage.removeItem('name')
+      // localStorage.removeItem('password')
+      // localStorage.removeItem('email')
       return {
+        ...state,
         token: null,
         isAuthenticated: false,
-        loading: false,
+        // loading: false,
+        name: null,
+        email: null,
+        password: null,
+        mockData: null,
+      }
+    case LOGOUT:
+      localStorage.removeItem('viitorToken')
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        // loading: false,
         name: null,
         email: null,
         password: null,
@@ -54,7 +73,22 @@ export default function (state = initState, action) {
     case LOAD_DATA:
       return {
         ...state,
-        data: MockData,
+        loading: false,
+        mockData: payload,
+      }
+    case SET_ALERT:
+      return {
+        ...state,
+        altMsg: payload.msg,
+        altId: payload.id,
+        altType: payload.alertType,
+      }
+    case REMOVE_ALERT:
+      return {
+        ...state,
+        altMsg: null,
+        altType: null,
+        altId: null,
       }
     default:
       return state

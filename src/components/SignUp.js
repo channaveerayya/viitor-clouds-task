@@ -28,6 +28,9 @@ const SignUp = (props) => {
     <Fragment>
       <div className='global-container'>
         <div className='card login-form'>
+          <Link to='/' className='mt-2'>
+            &#8592; Go back{' '}
+          </Link>
           <div className='card-body'>
             <h3 className='card-title text-center h1'>
               Sign Up to Viitor Clouds
@@ -88,8 +91,7 @@ const SignUp = (props) => {
     </Fragment>
   )
 }
-
-SignUp.prototype = {
+SignUp.propTypes = {
   isAuthenticated: PropTypes.bool,
   signUp: PropTypes.func.isRequired,
 }
