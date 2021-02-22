@@ -14,17 +14,13 @@ function View({ match: { params } }) {
       <div className='row'>
         {params.id && posts && posts.length ? (
           posts.map((post) => (
-            <div className='col-3 mt-4' key={post.id}>
-              <div className='card' style={{ width: '18rem' }}>
+            <div className='col-sm-1 col-md-3 mt-2' key={post.id}>
+              <div className='card'>
                 <div className='card-body'>
-                  <h5 className='card-title'>Card title</h5>
-                  <h6 className='card-subtitle mb-2 text-muted'>
-                    Card subtitle
-                  </h6>
-                  <p className='card-text'>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
+                  <h5 className='card-title'>
+                    {post.id}. {post.title}
+                  </h5>
+                  <p className='card-text text-muted'>{post.body}</p>
                 </div>
               </div>
             </div>

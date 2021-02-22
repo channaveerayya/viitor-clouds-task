@@ -28,7 +28,7 @@ class Todos extends Component {
         {loading ? (
           <h1>Loading</h1>
         ) : (
-          <div style={{ height: '70vh', overflowY: 'auto' }}>
+          <div className='gridTable'>
             <table className='table table-dark table-striped'>
               <thead>
                 <tr>
@@ -73,6 +73,35 @@ class Todos extends Component {
                 ))}
               </tbody>
             </table>
+            <div className='row cards'>
+              {todos.map((todoArr, i) => (
+                <div className='col-sm-1 col-md-4 mt-1 center' key={i}>
+                  <div className='card'>
+                    <div className='card-body'>
+                      <h5 className='card-title'>
+                        User ID {todoArr[0].userId}
+                      </h5>
+                      <h6 className='card-subtitle mb-2 text-muted'>
+                        No OF Todos {todoArr.length}
+                      </h6>
+
+                      <a
+                        className='card-link text-danger'
+                        onClick={() => this.deleteRow(todoArr[0].userId)}
+                      >
+                        Delete
+                      </a>
+                      <Link
+                        className='card-link'
+                        to={`/todos/${todoArr[0].userId}`}
+                      >
+                        View Todo
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

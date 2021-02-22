@@ -9,7 +9,6 @@ import {
   SET_ALERT,
   REMOVE_ALERT,
 } from './types'
-import MockData from '../mockData.json'
 
 const initState = {
   token: localStorage.getItem('viitorToken'),
@@ -37,22 +36,15 @@ export default function (state = initState, action) {
         ...state,
         ...payload,
         isAuthenticated: true,
-        // loading: false,
-        // mockData: MockData,
       }
 
     case LOGIN_FAIL:
     case AUTH_ERROR:
     case REGISTER_FAIL:
-      // localStorage.removeItem('viitorToken')
-      // localStorage.removeItem('name')
-      // localStorage.removeItem('password')
-      // localStorage.removeItem('email')
       return {
         ...state,
         token: null,
         isAuthenticated: false,
-        // loading: false,
         name: null,
         email: null,
         password: null,
@@ -64,7 +56,6 @@ export default function (state = initState, action) {
         ...state,
         token: null,
         isAuthenticated: false,
-        // loading: false,
         name: null,
         email: null,
         password: null,

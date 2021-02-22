@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import GridTable from './GridTable'
 import { deleteApi } from '../Api'
-
+import GridTable from './GridTable'
+import Loading from './Loading'
 class Dashboard extends Component {
   state = {
     data: [],
@@ -127,7 +125,7 @@ class Dashboard extends Component {
       <div className='container mt-2'>
         <h1 className='display-4'>List of Users</h1>
         {loading ? (
-          <h1>Loading</h1>
+          <Loading />
         ) : (
           <>
             <div className='d-flex flex-row-reverse bd-highlight mb-2 mt-2'>

@@ -7,6 +7,7 @@ const PrivateRouting = ({
   component: Component,
   isAuthenticated,
   logout,
+  name,
   ...rest
 }) => {
   return (
@@ -23,6 +24,7 @@ const PrivateRouting = ({
                   <h1 style={{ color: 'white' }}>ViitorCloud</h1>
                 </Link>
               </h1>
+              <h3>Hii {name}</h3>
               <ul>
                 <li>
                   <Link to='/dashboard'>
@@ -62,6 +64,7 @@ PrivateRouting.propTypes = {
 const mapStateToProps = (state) => ({
   isAuthenticated: state.isAuthenticated,
   loading: state.loading,
+  name: state.name,
 })
 
 export default connect(mapStateToProps, { logout })(PrivateRouting)
